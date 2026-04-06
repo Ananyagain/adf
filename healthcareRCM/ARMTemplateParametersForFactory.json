@@ -1,0 +1,30 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "healthcareRCM"
+		},
+		"ls_AzureBlob_connectionString": {
+			"value": ""
+		},
+		"ls_AzureSqlDatabase_password": {
+			"value": ""
+		},
+		"HttpServer1_properties_typeProperties_url": {
+			"value": "https://raw.githubusercontent.com/"
+		},
+		"ls_AzureSqlDatabase_properties_typeProperties_server": {
+			"value": "genaipt-sqlserver.database.windows.net"
+		},
+		"ls_AzureSqlDatabase_properties_typeProperties_database": {
+			"value": "genAI"
+		},
+		"ls_AzureSqlDatabase_properties_typeProperties_userName": {
+			"value": "ananya"
+		},
+		"trigger2_properties_typeProperties_scope": {
+			"value": "/subscriptions/75161946-dd53-41a1-89a8-65138138d316/resourceGroups/HealthCareRevenueCycleMgnt/providers/Microsoft.Storage/storageAccounts/genaifiles"
+		}
+	}
+}
