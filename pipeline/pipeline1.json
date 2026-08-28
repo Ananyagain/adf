@@ -3,8 +3,8 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Data flow1",
-				"type": "ExecuteDataFlow",
+				"name": "Copy data1",
+				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -13,20 +13,77 @@
 					"secureOutput": false,
 					"secureInput": false
 				},
-				"userProperties": [],
+				"userProperties": [
+					{
+						"name": "Source",
+						"value": "@{concat('search?engine=google_news&q=latest+news&gl=in&time_period_min=', formatDateTime(pipeline().parameters.pl_windowstarttime, 'yyyy/MM/dd'), '&time_period_max=', formatDateTime(pipeline().parameters.pl_windowendtime, 'yyyy/MM/dd'), '&api_key=dUpUEghfgpGxR3JeLs9ZDnoy')}"
+					},
+					{
+						"name": "Destination",
+						"value": "raw-data/@{concat('api-data/news-api/incremental/', formatDateTime(utcNow(), 'yyyy/MM/dd'))}/@{concat('latest-india-news_', formatDateTime(utcNow(), 'yyyyMMdd_HHmmss'), '.json')}"
+					}
+				],
 				"typeProperties": {
-					"dataflow": {
-						"referenceName": "dataflow1",
-						"type": "DataFlowReference"
+					"source": {
+						"type": "RestSource",
+						"httpRequestTimeout": "00:01:40",
+						"requestInterval": "00.00:00:00.010",
+						"requestMethod": "GET",
+						"paginationRules": {
+							"supportRFC5988": "true"
+						}
 					},
-					"compute": {
-						"coreCount": 8,
-						"computeType": "General"
+					"sink": {
+						"type": "JsonSink",
+						"storeSettings": {
+							"type": "AzureBlobStorageWriteSettings"
+						},
+						"formatSettings": {
+							"type": "JsonWriteSettings"
+						}
 					},
-					"traceLevel": "Fine"
-				}
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "RestResource1",
+						"type": "DatasetReference",
+						"parameters": {
+							"ds_startdate": {
+								"value": "@formatDateTime(pipeline().parameters.pl_windowstarttime, 'MM/dd/yyyy')",
+								"type": "Expression"
+							},
+							"ds_enddate": {
+								"value": "@formatDateTime(pipeline().parameters.pl_windowendtime, 'MM/dd/yyyy')",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "Json1",
+						"type": "DatasetReference",
+						"parameters": {
+							"ds_startdate": {
+								"value": "@formatDateTime(pipeline().parameters.pl_windowstarttime, 'MM/dd/yyyy')",
+								"type": "Expression"
+							}
+						}
+					}
+				]
 			}
 		],
-		"annotations": []
-	}
+		"parameters": {
+			"pl_windowstarttime": {
+				"type": "string"
+			},
+			"pl_windowendtime": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2026-08-28T18:19:51Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
 }

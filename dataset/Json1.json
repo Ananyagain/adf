@@ -2,15 +2,28 @@
 	"name": "Json1",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "ls_AzureBlob",
+			"referenceName": "AzureBlobStorage1",
 			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"ds_startdate": {
+				"type": "string"
+			}
 		},
 		"annotations": [],
 		"type": "Json",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"container": "outputjsons"
+				"fileName": {
+					"value": "@concat('latest-india-news_', formatDateTime(dataset().ds_startdate, 'yyyyMMdd_HHmmss'), '.json')",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@concat('api-data/news-api/incremental/', formatDateTime(dataset().ds_startdate, 'yyyy/MM/dd'))",
+					"type": "Expression"
+				},
+				"container": "raw-data"
 			}
 		},
 		"schema": {}

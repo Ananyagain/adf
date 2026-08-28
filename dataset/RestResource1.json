@@ -1,0 +1,27 @@
+{
+	"name": "RestResource1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "RestService1",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"ds_startdate": {
+				"type": "string"
+			},
+			"ds_enddate": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "RestResource",
+		"typeProperties": {
+			"relativeUrl": {
+				"value": "@concat('search?engine=google_news&q=latest+news&gl=in&time_period_min=', dataset().ds_startdate, '&time_period_max=', dataset().ds_enddate, '&api_key=KxYamE1kMfwSDbvTnWd6BbTq')",
+				"type": "Expression"
+			}
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,15 @@
+{
+	"name": "adf-safetynet",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Disabled",
+			"editable": true
+		}
+	},
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "cd5de010-7ee5-48af-8a7f-1e3c2b9b4188",
+		"tenantId": "f958e84a-92b8-439f-a62d-4f45996b6d07"
+	}
+}
