@@ -5,7 +5,7 @@
 		"runtimeState": "Started",
 		"pipeline": {
 			"pipelineReference": {
-				"referenceName": "pipeline1",
+				"referenceName": "incremental_tumbling_window_restapi",
 				"type": "PipelineReference"
 			},
 			"parameters": {
